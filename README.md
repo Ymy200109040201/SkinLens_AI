@@ -9,6 +9,17 @@
 已经完成生产环境（production）部署适配：`npm run build` + `npm start` 通过，
 所有 AI 调用都在服务端完成，Key 不会进入浏览器；部署步骤见 [DEPLOYMENT.md](./DEPLOYMENT.md)。
 
+### 线上 Demo
+
+| | |
+| --- | --- |
+| 公网地址 | https://skinlens-ai-ymy200109040201.vercel.app |
+| 代码仓库 | https://github.com/Ymy200109040201/SkinLens_AI |
+| 部署平台 | Vercel（生产分支 `main`，推送后自动部署） |
+| AI 提供方 | DeepSeek `deepseek-chat`（OpenAI 兼容协议，仅在服务端调用） |
+
+打开公网地址后点首页的「载入演示数据」，即可跳过准备步骤直接看到完整效果。
+
 ## 一、这份 MVP 实现了什么
 
 ### 核心链路
