@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+/*
+ * SkinLens AI 设计令牌
+ * 风格取向：柔和、偏美容护肤，避免医疗软件式的冷硬感。
+ */
+@theme {
+  --color-canvas: #fcf8fa;
+  --color-surface: #ffffff;
+  --color-surface-muted: #faf6f8;
+  --color-ink: #2b2530;
+  --color-ink-soft: #574f5e;
+  --color-muted: #8c8494;
+  --color-line: #f1e8ed;
+  --color-line-strong: #e5d9e1;
+
+  --color-brand: #e05c8a;
+  --color-brand-dark: #bf3f6c;
+  --color-brand-soft: #fdebf1;
+  --color-lilac: #8b6bd1;
+  --color-lilac-soft: #f0eafb;
+
+  --color-warn: #b8742c;
+  --color-warn-soft: #fdf2e2;
+  --color-ok: #3d8763;
+  --color-ok-soft: #e6f4ed;
+
+  --font-sans:
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --shadow-card: 0 2px 16px rgba(83, 51, 70, 0.05);
+  --shadow-float: 0 10px 30px rgba(191, 63, 108, 0.22);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    color-scheme: light;
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--color-canvas);
+    background-image:
+      radial-gradient(1200px 600px at 12% -10%, #fde7ef 0%, rgba(253, 231, 239, 0) 60%),
+      radial-gradient(900px 520px at 88% 0%, #efe8fb 0%, rgba(239, 232, 251, 0) 55%);
+    background-attachment: fixed;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: var(--color-brand-soft);
+  }
+}
+
+/** 底部安全区（iPhone 刘海屏） */
+@utility pb-safe {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.5rem);
+}
+
+/** 隐藏滚动条但保留滚动 */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/** 卡片基础样式 */
+@utility card-base {
+  border-radius: 1.5rem;
+  border: 1px solid var(--color-line);
+  background-color: color-mix(in srgb, var(--color-surface) 92%, transparent);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(6px);
+}
