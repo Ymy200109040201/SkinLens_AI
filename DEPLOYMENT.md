@@ -214,6 +214,23 @@ docker run -p 3000:3000 -e MOCK_AI=true skinlens
 
 验证：`GET /api/health` 返回 `{"mode":"llm","model":"..."}`，报告右上角标签从「本地演示分析」变成「AI 洞察」。
 
+#### 用 DeepSeek（国内可直连，按本 Demo 的推荐配置）
+
+代码用的是 OpenAI 兼容协议，所以换 DeepSeek 只需要改三个环境变量，**不用改任何代码**：
+
+| Key | Value |
+| --- | --- |
+| `OPENAI_API_KEY` | `sk-...`（DeepSeek 控制台的 API Key） |
+| `OPENAI_BASE_URL` | `https://api.deepseek.com/v1` |
+| `AI_MODEL` | `deepseek-chat` |
+| `MOCK_AI` | `false` |
+
+注意：
+
+- `OPENAI_API_KEY` 这个变量名保持原样即可，它只是「兼容协议的 Key」占位名，不要写成 `DEEPSEEK_API_KEY`（代码里读的是前者的名字）。
+- DeepSeek 的 JSON 输出模式与代码里的 `response_format: json_object` 兼容；即使模型偶发返回非法 JSON，应用也会自动重试一次并降级到本地规则分析，不会白屏。
+- 想临时停掉 AI 又不想删 Key：把 `MOCK_AI` 改回 `true` 再 Redeploy。
+
 ### 安全与省钱要点
 
 - **Key 永远只放在服务端环境变量里**。前端代码、README、Git 提交里都不应出现真实 Key。
