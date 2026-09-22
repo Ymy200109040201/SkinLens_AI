@@ -41,6 +41,7 @@ const WATCH_SUGGESTIONS = ["香精", "变性乙醇", "芳樟醇", "柠檬烯", "
 export default function ProfilePage() {
   const { ready, profile, analyses, aiMode, aiModel } = useStore();
   const [clearOpen, setClearOpen] = useState(false);
+  const [demoConfirmOpen, setDemoConfirmOpen] = useState(false);
   const [exported, setExported] = useState(false);
   const [demoMessage, setDemoMessage] = useState<{ tone: "ok" | "warn"; text: string } | null>(
     null,
@@ -146,6 +147,22 @@ export default function ProfilePage() {
         </div>
       </Card>
 
+      <Link
+        href="/skin-analysis"
+        className="flex items-center justify-between rounded-3xl border border-dashed border-line-strong bg-surface/70 px-5 py-4 transition hover:border-brand/40"
+      >
+        <span className="flex items-center gap-3">
+          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-lilac-soft text-lilac">
+            <CameraIcon width={19} height={19} />
+          </span>
+          <span>
+            <span className="block text-[14px] font-medium text-ink">AI 拍照测肤</span>
+            <span className="mt-0.5 block text-[12px] text-muted">可同时给出肤质和肤质特征建议</span>
+          </span>
+        </span>
+        <ChevronRightIcon width={18} height={18} className="text-muted" />
+      </Link>
+
       <Card>
         <CardTitle title="关注功效" subtitle="可多选，分析时会优先说明这些方向上的相关成分" />
         <div className="flex flex-wrap gap-2">
@@ -197,7 +214,7 @@ export default function ProfilePage() {
           subtitle={`当前设备已保存 ${analyses.length} 条分析记录，全部只存在你自己的浏览器里`}
         />
         <div className="flex flex-wrap gap-2">
-          <Button variant="soft" size="sm" onClick={handleLoadDemo} disabled={!ready || loadingDemo}>
+          <Button variant="soft" size="sm" onClick={() => setDemoConfirmOpen(true)} disabled={!ready || loadingDemo}>
             {loadingDemo ? "正在载入…" : "载入演示数据"}
           </Button>
           <Button variant="soft" size="sm" onClick={handleExport} disabled={!ready}>
@@ -223,27 +240,16 @@ export default function ProfilePage() {
       </Card>
 
       <Card>
-        <CardTitle title="AI 与未来功能" />
+        <CardTitle title="未来功能" />
         <div className="space-y-3">
-          <div className="flex items-center justify-between rounded-2xl bg-surface-muted/60 px-4 py-3">
-            <span className="text-[13.5px] text-ink-soft">当前分析模式</span>
-            <Tag tone={aiMode === "llm" ? "lilac" : "brand"}>
-              {aiMode === "llm" ? `在线 AI · ${aiModel ?? ""}` : "本地演示模式"}
-            </Tag>
-          </div>
           <div className="flex items-center justify-between rounded-2xl border border-dashed border-line-strong px-4 py-3 text-[13.5px] text-muted">
             <span className="flex items-center gap-2">
               <CameraIcon width={17} height={17} />
-              AI 拍照测肤
+              拍照识别查成分 · 即将推出
             </span>
-            <span>即将推出</span>
           </div>
           <div className="flex items-center justify-between rounded-2xl border border-dashed border-line-strong px-4 py-3 text-[13.5px] text-muted">
-            <span className="flex items-center gap-2">
-              <CameraIcon width={17} height={17} />
-              拍照识别成分表（OCR）
-            </span>
-            <span>即将推出</span>
+            <span>复制链接查成分 · 即将推出</span>
           </div>
         </div>
       </Card>
@@ -271,6 +277,31 @@ export default function ProfilePage() {
             }}
           >
             确认清除
+          </Button>
+        </div>
+      </Sheet>
+
+      <Sheet
+        open={demoConfirmOpen}
+        onClose={() => setDemoConfirmOpen(false)}
+        title="载入演示数据？"
+      >
+        <p className="text-[13.5px] leading-6 text-ink-soft">
+          这会替换你当前的个人画像，并加入 3 条示例产品分析记录。现有分析记录会保留，你可以随时在数据管理中清除全部数据。
+        </p>
+        <div className="mt-4 flex gap-2">
+          <Button variant="soft" fullWidth onClick={() => setDemoConfirmOpen(false)}>
+            取消
+          </Button>
+          <Button
+            fullWidth
+            disabled={loadingDemo}
+            onClick={async () => {
+              await handleLoadDemo();
+              setDemoConfirmOpen(false);
+            }}
+          >
+            {loadingDemo ? "正在载入…" : "确认载入"}
           </Button>
         </div>
       </Sheet>

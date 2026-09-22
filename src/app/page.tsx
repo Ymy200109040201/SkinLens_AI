@@ -1,16 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 
 import {
-  CameraIcon,
   ChevronRightIcon,
   CompareIcon,
   PlusIcon,
   SparkIcon,
 } from "@/components/icons";
-import { AiBadge, Button, Card, CardTitle, EmptyState, Spinner, Tag } from "@/components/ui";
+import { AiBadge, Card, CardTitle, EmptyState, Tag } from "@/components/ui";
 import {
   APP_NAME,
   APP_TAGLINE,
@@ -22,7 +20,6 @@ import type { SkinConcern, SkinGoal } from "@/lib/domain/types";
 import { formatRelative, productTypeLabel, skinTypeLabel } from "@/lib/format";
 import { useStore } from "@/hooks/useStore";
 import { summarySnippet } from "@/lib/report";
-import { loadDemoData } from "@/lib/store/client-store";
 import { hasProfileContent } from "@/lib/storage/types";
 
 function goalLabel(goal: SkinGoal): string {
@@ -41,21 +38,6 @@ export default function HomePage() {
   const { ready, profile, analyses, aiMode, aiModel } = useStore();
   const recent = analyses.slice(0, 3);
   const profileReady = hasProfileContent(profile);
-  const [seeding, setSeeding] = useState(false);
-  const [seedError, setSeedError] = useState<string | null>(null);
-
-  async function handleLoadDemo() {
-    setSeeding(true);
-    setSeedError(null);
-    try {
-      await loadDemoData();
-    } catch (error) {
-      setSeedError(error instanceof Error ? error.message : "演示数据载入失败，请稍后重试。");
-    } finally {
-      setSeeding(false);
-    }
-  }
-
   return (
     <main className="space-y-4">
       <header className="flex items-center justify-between pt-1">
@@ -85,7 +67,7 @@ export default function HomePage() {
         分析一款产品
       </Link>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div>
         <Link
           href="/compare"
           className="flex items-center gap-2 rounded-2xl border border-line bg-surface/80 px-4 py-3 text-[13.5px] text-ink-soft transition hover:border-brand/40"
@@ -93,54 +75,10 @@ export default function HomePage() {
           <CompareIcon width={18} height={18} className="text-lilac" />
           产品对比
         </Link>
-        <div className="flex items-center gap-2 rounded-2xl border border-dashed border-line-strong bg-surface/60 px-4 py-3 text-[13.5px] text-muted">
-          <CameraIcon width={18} height={18} />
-          AI 拍照测肤 · 即将推出
-        </div>
       </div>
 
-      {ready && analyses.length === 0 ? (
-        <Card className="border-dashed border-line-strong bg-surface/70">
-          <CardTitle
-            title="第一次使用？"
-            subtitle="先载入一份演示数据看看完整效果：示例画像 + 3 款示例产品（精华 / 面霜 / 洁面），可以直接查看报告、对比与问答。"
-          />
-          <div className="flex flex-wrap items-center gap-3">
-            <Button variant="soft" size="sm" onClick={handleLoadDemo} disabled={seeding}>
-              {seeding ? (
-                <>
-                  <Spinner className="border-brand/30 border-t-brand" />
-                  正在准备演示数据…
-                </>
-              ) : (
-                "载入演示数据"
-              )}
-            </Button>
-            <span className="text-[11.5px] leading-5 text-muted">
-              不调用外部 AI，也不会上传任何内容；随时可在「我的 → 数据管理」中一键清除
-            </span>
-          </div>
-          {seedError ? (
-            <p className="mt-3 rounded-2xl bg-warn-soft px-3.5 py-2.5 text-[12.5px] leading-5 text-warn">
-              {seedError}
-            </p>
-          ) : null}
-        </Card>
-      ) : null}
-
       <Card>
-        <CardTitle
-          title="我的画像"
-          action={
-            <Link
-              href="/profile"
-              className="inline-flex items-center gap-0.5 text-[13px] text-brand-dark"
-            >
-              设置
-              <ChevronRightIcon width={16} height={16} />
-            </Link>
-          }
-        />
+        <CardTitle title="我的画像" />
         {!ready ? (
           <div className="space-y-2">
             <Skeleton className="h-5 w-2/3" />

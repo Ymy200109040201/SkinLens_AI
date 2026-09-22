@@ -221,9 +221,14 @@ export default function AnalyzePage() {
         ) : null}
       </Card>
 
-      <div className="flex items-center gap-2 rounded-2xl border border-dashed border-line-strong bg-surface/60 px-4 py-3 text-[12.5px] text-muted">
-        <CameraIcon width={18} height={18} />
-        拍照识别成分表（OCR）即将推出，当前请手动粘贴
+      <div className="space-y-2">
+        <div className="flex items-center gap-2 rounded-2xl border border-dashed border-line-strong bg-surface/60 px-4 py-3 text-[12.5px] text-muted">
+          <CameraIcon width={18} height={18} />
+          拍照识别查成分 · 即将推出
+        </div>
+        <div className="rounded-2xl border border-dashed border-line-strong bg-surface/60 px-4 py-3 text-[12.5px] text-muted">
+          复制链接查成分 · 即将推出
+        </div>
       </div>
 
       <Button size="lg" fullWidth onClick={handleSubmit} disabled={!canSubmit}>
