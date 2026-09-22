@@ -4,7 +4,6 @@ import Link from "next/link";
 
 import {
   ChevronRightIcon,
-  CompareIcon,
   PlusIcon,
   SparkIcon,
 } from "@/components/icons";
@@ -66,16 +65,6 @@ export default function HomePage() {
         <PlusIcon width={20} height={20} />
         分析一款产品
       </Link>
-
-      <div>
-        <Link
-          href="/compare"
-          className="flex items-center gap-2 rounded-2xl border border-line bg-surface/80 px-4 py-3 text-[13.5px] text-ink-soft transition hover:border-brand/40"
-        >
-          <CompareIcon width={18} height={18} className="text-lilac" />
-          产品对比
-        </Link>
-      </div>
 
       <Card>
         <CardTitle title="我的画像" />

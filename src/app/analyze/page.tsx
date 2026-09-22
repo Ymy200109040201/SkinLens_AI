@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
-import { CameraIcon, ChevronRightIcon, FlaskIcon, SparkIcon } from "@/components/icons";
+import { CameraIcon, ChevronRightIcon, FlaskIcon, LinkIcon, SparkIcon } from "@/components/icons";
 import { Button, Card, CardTitle, Chip, Notice, Spinner, Tag } from "@/components/ui";
 import { PRODUCT_TYPE_LABELS } from "@/lib/domain/labels";
 import type { ProductType } from "@/lib/domain/types";
@@ -226,7 +226,8 @@ export default function AnalyzePage() {
           <CameraIcon width={18} height={18} />
           拍照识别查成分 · 即将推出
         </div>
-        <div className="rounded-2xl border border-dashed border-line-strong bg-surface/60 px-4 py-3 text-[12.5px] text-muted">
+        <div className="flex items-center gap-2 rounded-2xl border border-dashed border-line-strong bg-surface/60 px-4 py-3 text-[12.5px] text-muted">
+          <LinkIcon width={18} height={18} />
           复制链接查成分 · 即将推出
         </div>
       </div>

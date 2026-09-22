@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
-import { CameraIcon, ChevronRightIcon, PlusIcon, ShieldIcon, TrashIcon } from "@/components/icons";
+import { CameraIcon, ChevronRightIcon, LinkIcon, PlusIcon, ShieldIcon, TrashIcon } from "@/components/icons";
 import { AiBadge, Button, Card, CardTitle, Chip, Sheet, Tag } from "@/components/ui";
 import {
   APP_NAME,
@@ -249,7 +249,10 @@ export default function ProfilePage() {
             </span>
           </div>
           <div className="flex items-center justify-between rounded-2xl border border-dashed border-line-strong px-4 py-3 text-[13.5px] text-muted">
-            <span>复制链接查成分 · 即将推出</span>
+            <span className="flex items-center gap-2">
+              <LinkIcon width={17} height={17} />
+              复制链接查成分 · 即将推出
+            </span>
           </div>
         </div>
       </Card>
