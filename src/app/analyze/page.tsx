@@ -230,6 +230,9 @@ export default function AnalyzePage() {
           <LinkIcon width={18} height={18} />
           复制链接查成分 · 即将推出
         </div>
+        <p className="px-1 text-[12px] leading-5 text-muted">
+          复制链接查成分和拍照识别查成分均即将推出，当前请手动粘贴完整成分表。
+        </p>
       </div>
 
       <Button size="lg" fullWidth onClick={handleSubmit} disabled={!canSubmit}>
